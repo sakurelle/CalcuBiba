@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.calcubiba.calculator.gauss.GaussViewModelTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-07-13T20:18:54.474Z" hostname="DESKTOP-MG0SA4B" time="0.134">
+  <properties/>
+  <testcase name="clear resets data" classname="ru.calcubiba.calculator.gauss.GaussViewModelTest" time="0.049"/>
+  <testcase name="switching modes preserves matrix" classname="ru.calcubiba.calculator.gauss.GaussViewModelTest" time="0.0"/>
+  <testcase name="successful calculation updates result" classname="ru.calcubiba.calculator.gauss.GaussViewModelTest" time="0.081"/>
+  <testcase name="calculate with composite modulus does not invoke use case" classname="ru.calcubiba.calculator.gauss.GaussViewModelTest" time="0.002"/>
+  <testcase name="changing size preserves overlapping cells" classname="ru.calcubiba.calculator.gauss.GaussViewModelTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

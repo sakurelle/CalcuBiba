@@ -1,0 +1,37 @@
+R_DEF: Internal format may change without notice
+local
+string gauss_actions_title
+string gauss_augmented_editor_hint
+string gauss_augmented_editor_title
+string gauss_basic_variables
+string gauss_calculate_action
+string gauss_clear_action
+string gauss_configuration_title
+string gauss_error_calculation_failed
+string gauss_error_empty_cell
+string gauss_error_invalid_modulus
+string gauss_error_invalid_number
+string gauss_free_variables
+string gauss_general_solution
+string gauss_linear_editor_hint
+string gauss_linear_editor_title
+string gauss_mode_augmented
+string gauss_mode_linear_system
+string gauss_mode_title
+string gauss_modulus_label
+string gauss_none
+string gauss_null_space_basis
+string gauss_particular_solution
+string gauss_result_placeholder
+string gauss_result_title
+string gauss_row_operations_title
+string gauss_rows_label
+string gauss_rref_title
+string gauss_short_description
+string gauss_solution_title
+string gauss_status_inconsistent
+string gauss_status_infinite
+string gauss_status_unique
+string gauss_title
+string gauss_variable_classification_title
+string gauss_variables_label

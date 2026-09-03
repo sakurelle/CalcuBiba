@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.calcubiba.core.math.PrimeFieldTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-07-13T20:12:49.365Z" hostname="DESKTOP-MG0SA4B" time="0.004">
+  <properties/>
+  <testcase name="finds inverse" classname="ru.calcubiba.core.math.PrimeFieldTest" time="0.001"/>
+  <testcase name="fails on inverse of zero" classname="ru.calcubiba.core.math.PrimeFieldTest" time="0.001"/>
+  <testcase name="multiplies values modulo p" classname="ru.calcubiba.core.math.PrimeFieldTest" time="0.0"/>
+  <testcase name="accepts prime modulus" classname="ru.calcubiba.core.math.PrimeFieldTest" time="0.0"/>
+  <testcase name="normalizes positive values" classname="ru.calcubiba.core.math.PrimeFieldTest" time="0.001"/>
+  <testcase name="normalizes negative values" classname="ru.calcubiba.core.math.PrimeFieldTest" time="0.0"/>
+  <testcase name="divides values modulo p" classname="ru.calcubiba.core.math.PrimeFieldTest" time="0.0"/>
+  <testcase name="adds values modulo p" classname="ru.calcubiba.core.math.PrimeFieldTest" time="0.001"/>
+  <testcase name="subtracts values modulo p" classname="ru.calcubiba.core.math.PrimeFieldTest" time="0.0"/>
+  <testcase name="rejects composite modulus" classname="ru.calcubiba.core.math.PrimeFieldTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

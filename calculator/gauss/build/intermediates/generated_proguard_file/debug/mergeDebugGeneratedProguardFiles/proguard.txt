@@ -1,0 +1,2 @@
+-keep,allowobfuscation,allowshrinking class ru.calcubiba.calculator.gauss.GaussViewModel
+-keep,allowobfuscation,allowshrinking class ru.calcubiba.calculator.gauss.GaussViewModel

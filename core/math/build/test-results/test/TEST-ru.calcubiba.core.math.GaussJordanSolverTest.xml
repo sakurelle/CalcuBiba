@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.calcubiba.core.math.GaussJordanSolverTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-07-13T20:12:49.332Z" hostname="DESKTOP-MG0SA4B" time="0.031">
+  <properties/>
+  <testcase name="supports more rows than variables" classname="ru.calcubiba.core.math.GaussJordanSolverTest" time="0.023"/>
+  <testcase name="does not mutate original matrix" classname="ru.calcubiba.core.math.GaussJordanSolverTest" time="0.001"/>
+  <testcase name="normalizes negative input coefficients" classname="ru.calcubiba.core.math.GaussJordanSolverTest" time="0.001"/>
+  <testcase name="solves over gf2" classname="ru.calcubiba.core.math.GaussJordanSolverTest" time="0.001"/>
+  <testcase name="supports free first column" classname="ru.calcubiba.core.math.GaussJordanSolverTest" time="0.0"/>
+  <testcase name="detects infinite solution space" classname="ru.calcubiba.core.math.GaussJordanSolverTest" time="0.001"/>
+  <testcase name="normalizes coefficients larger than modulus" classname="ru.calcubiba.core.math.GaussJordanSolverTest" time="0.0"/>
+  <testcase name="detects inconsistent system" classname="ru.calcubiba.core.math.GaussJordanSolverTest" time="0.001"/>
+  <testcase name="swaps rows when pivot candidate is zero" classname="ru.calcubiba.core.math.GaussJordanSolverTest" time="0.001"/>
+  <testcase name="handles zero row" classname="ru.calcubiba.core.math.GaussJordanSolverTest" time="0.0"/>
+  <testcase name="solves system with unique solution over gf5" classname="ru.calcubiba.core.math.GaussJordanSolverTest" time="0.001"/>
+  <testcase name="supports more variables than rows" classname="ru.calcubiba.core.math.GaussJordanSolverTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

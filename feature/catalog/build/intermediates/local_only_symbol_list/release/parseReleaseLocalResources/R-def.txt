@@ -1,0 +1,11 @@
+R_DEF: Internal format may change without notice
+local
+string catalog_empty_message
+string catalog_empty_title
+string catalog_search_label
+string catalog_search_placeholder
+string catalog_title
+string category_coding_theory
+string category_finite_fields
+string category_linear_algebra
+string category_polynomials
