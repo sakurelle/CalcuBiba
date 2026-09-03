@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -13,15 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import java.math.BigInteger
 import ru.calcubiba.core.designsystem.CalculatorScaffold
 import ru.calcubiba.core.designsystem.MatrixEditor
 import ru.calcubiba.core.designsystem.MatrixTable
 import ru.calcubiba.core.designsystem.ScreenSection
 import ru.calcubiba.core.designsystem.SectionCard
-import ru.calcubiba.core.math.GeneralSolution
-import ru.calcubiba.core.math.LinearSystemSolution
-import ru.calcubiba.core.math.RowOperation
 import ru.calcubiba.core.math.SolutionType
 
 @Composable
@@ -36,11 +31,7 @@ fun GaussScreen(
     ) { paddingValues ->
         ScreenSection(paddingValues = paddingValues) {
             GaussConfigurationSection(state = state, onAction = onAction)
-            GaussInputModeSelector(state = state, onAction = onAction)
-            when (state.inputMode) {
-                GaussInputMode.LINEAR_SYSTEM -> LinearSystemEditor(state = state, onAction = onAction)
-                GaussInputMode.AUGMENTED_MATRIX -> AugmentedMatrixEditor(state = state, onAction = onAction)
-            }
+            LinearSystemEditor(state = state, onAction = onAction)
             GaussActions(state = state, onAction = onAction)
             GaussResultSection(state = state)
         }
@@ -74,27 +65,7 @@ fun GaussConfigurationSection(
                 modifier = Modifier.weight(1f),
                 singleLine = true,
                 label = { Text(text = stringResource(R.string.gauss_modulus_label)) },
-            )
-        }
-    }
-}
-
-@Composable
-fun GaussInputModeSelector(
-    state: GaussUiState,
-    onAction: (GaussUiAction) -> Unit,
-) {
-    SectionCard(title = stringResource(R.string.gauss_mode_title)) {
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            FilterChip(
-                selected = state.inputMode == GaussInputMode.LINEAR_SYSTEM,
-                onClick = { onAction(GaussUiAction.SwitchInputMode(GaussInputMode.LINEAR_SYSTEM)) },
-                label = { Text(text = stringResource(R.string.gauss_mode_linear_system)) },
-            )
-            FilterChip(
-                selected = state.inputMode == GaussInputMode.AUGMENTED_MATRIX,
-                onClick = { onAction(GaussUiAction.SwitchInputMode(GaussInputMode.AUGMENTED_MATRIX)) },
-                label = { Text(text = stringResource(R.string.gauss_mode_augmented)) },
+                supportingText = { Text(text = stringResource(R.string.gauss_modulus_hint)) },
             )
         }
     }
@@ -108,32 +79,6 @@ fun LinearSystemEditor(
     SectionCard(title = stringResource(R.string.gauss_linear_editor_title)) {
         Text(
             text = stringResource(R.string.gauss_linear_editor_hint),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        MatrixEditor(
-            rowCount = state.rowCount,
-            columnCount = state.variableCount,
-            coefficientAt = { row, column -> state.coefficients[row][column] },
-            onCoefficientChange = { row, column, value ->
-                onAction(GaussUiAction.UpdateCoefficient(row, column, value))
-            },
-            constantAt = { row -> state.constants[row] },
-            onConstantChange = { row, value ->
-                onAction(GaussUiAction.UpdateConstant(row, value))
-            },
-        )
-    }
-}
-
-@Composable
-fun AugmentedMatrixEditor(
-    state: GaussUiState,
-    onAction: (GaussUiAction) -> Unit,
-) {
-    SectionCard(title = stringResource(R.string.gauss_augmented_editor_title)) {
-        Text(
-            text = stringResource(R.string.gauss_augmented_editor_hint),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -200,25 +145,25 @@ fun GaussResultSection(state: GaussUiState) {
 }
 
 @Composable
-fun RrefMatrixCard(result: LinearSystemSolution<BigInteger>) {
+fun RrefMatrixCard(result: GaussSolveResult) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
             text = stringResource(R.string.gauss_rref_title),
             style = MaterialTheme.typography.titleSmall,
         )
         MatrixTable(
-            rows = result.reducedMatrix.rows().map { row -> row.map(BigInteger::toString) },
+            rows = result.reducedMatrix,
             pivotPositions = result.pivotColumns.mapIndexed { rowIndex, columnIndex ->
                 rowIndex to columnIndex
             }.toSet(),
             inconsistentRows = result.inconsistentRows.toSet(),
-            coefficientCount = result.reducedMatrix.columnCount - 1,
+            coefficientCount = result.reducedMatrix.first().size - 1,
         )
     }
 }
 
 @Composable
-fun VariableClassificationCard(result: LinearSystemSolution<BigInteger>) {
+fun VariableClassificationCard(result: GaussSolveResult) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
             text = stringResource(R.string.gauss_variable_classification_title),
@@ -240,7 +185,7 @@ fun VariableClassificationCard(result: LinearSystemSolution<BigInteger>) {
 }
 
 @Composable
-fun SolutionCard(result: LinearSystemSolution<BigInteger>) {
+fun SolutionCard(result: GaussSolveResult) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
             text = stringResource(R.string.gauss_solution_title),
@@ -273,7 +218,7 @@ fun SolutionCard(result: LinearSystemSolution<BigInteger>) {
 }
 
 @Composable
-fun RowOperationsCard(result: LinearSystemSolution<BigInteger>) {
+fun RowOperationsCard(result: GaussSolveResult) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
             text = stringResource(R.string.gauss_row_operations_title),
@@ -298,7 +243,7 @@ private fun GaussError.asText(): String = when (this) {
 }
 
 @Composable
-private fun LinearSystemSolution<BigInteger>.statusText(): String = when (type) {
+private fun GaussSolveResult.statusText(): String = when (type) {
     SolutionType.UNIQUE -> stringResource(R.string.gauss_status_unique)
     SolutionType.INFINITE -> stringResource(R.string.gauss_status_infinite)
     SolutionType.INCONSISTENT -> stringResource(R.string.gauss_status_inconsistent)
@@ -307,10 +252,10 @@ private fun LinearSystemSolution<BigInteger>.statusText(): String = when (type) 
 private fun List<Int>.toVariableList(): String =
     if (isEmpty()) "-" else joinToString { "x${it + 1}" }
 
-private fun List<BigInteger>.formatVector(): String =
-    joinToString(prefix = "(", postfix = ")", separator = ", ") { it.toString() }
+private fun List<String>.formatVector(): String =
+    joinToString(prefix = "(", postfix = ")", separator = ", ")
 
-private fun GeneralSolution<BigInteger>.asDisplayText(): String {
+private fun GaussGeneralSolution.asDisplayText(): String {
     if (nullSpaceBasis.isEmpty()) {
         return particularSolution.formatVector()
     }
@@ -322,11 +267,11 @@ private fun GeneralSolution<BigInteger>.asDisplayText(): String {
     return "${particularSolution.formatVector()} + $basisText"
 }
 
-private fun RowOperation<BigInteger>.asDisplayText(): String = when (this) {
-    is RowOperation.AddScaledRow ->
+private fun GaussRowOperation.asDisplayText(): String = when (this) {
+    is GaussRowOperation.AddScaledRow ->
         "R${targetRow + 1} = R${targetRow + 1} + (${factor}) * R${sourceRow + 1}"
-    is RowOperation.ScaleRow ->
+    is GaussRowOperation.ScaleRow ->
         "R${row + 1} = (${factor}) * R${row + 1}"
-    is RowOperation.SwapRows ->
+    is GaussRowOperation.SwapRows ->
         "R${firstRow + 1} <-> R${secondRow + 1}"
 }

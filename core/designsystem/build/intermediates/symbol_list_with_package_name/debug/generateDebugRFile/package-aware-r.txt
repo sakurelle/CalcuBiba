@@ -1,1 +1,2 @@
 ru.calcubiba.core.designsystem
+string design_back

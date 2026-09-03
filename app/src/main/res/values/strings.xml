@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">CalcuBiba</string>
-    <string name="unknown_calculator_title">Calculator unavailable</string>
-    <string name="unknown_calculator_message">The requested calculator is not registered in the current bundle.</string>
+    <string name="unknown_calculator_title">Калькулятор недоступен</string>
+    <string name="unknown_calculator_message">Запрошенный калькулятор не зарегистрирован в текущей сборке.</string>
 </resources>

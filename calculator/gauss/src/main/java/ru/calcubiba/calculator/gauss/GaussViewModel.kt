@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.calcubiba.core.math.Rational
 
 @HiltViewModel
 class GaussViewModel @Inject constructor(
@@ -28,7 +29,6 @@ class GaussViewModel @Inject constructor(
             is GaussUiAction.UpdateModulus -> _uiState.update { it.copy(modulus = action.value, error = null) }
             is GaussUiAction.UpdateRowCount -> resizeRows(action.value)
             is GaussUiAction.UpdateVariableCount -> resizeColumns(action.value)
-            is GaussUiAction.SwitchInputMode -> _uiState.update { it.copy(inputMode = action.inputMode) }
             GaussUiAction.Calculate -> calculate()
             GaussUiAction.Clear -> _uiState.value = GaussUiState()
         }
@@ -97,7 +97,9 @@ class GaussViewModel @Inject constructor(
         }
 
         val modulus = currentState.modulus.trim().toBigIntegerOrNull()
-        if (modulus == null || modulus <= BigInteger.ONE || !modulus.isProbablePrime(50)) {
+        if (modulus == null || modulus < BigInteger.ZERO ||
+            (modulus != BigInteger.ZERO && (modulus <= BigInteger.ONE || !modulus.isProbablePrime(50)))
+        ) {
             _uiState.update { it.copy(error = GaussError.INVALID_MODULUS) }
             return
         }
@@ -107,9 +109,7 @@ class GaussViewModel @Inject constructor(
             return
         }
 
-        val coefficients = parseMatrix(currentState.coefficients)
-        val constants = parseVector(currentState.constants)
-        if (coefficients == null || constants == null) {
+        if (!hasValidCoefficients(currentState, modulus)) {
             _uiState.update { it.copy(error = GaussError.INVALID_NUMBER, result = null) }
             return
         }
@@ -120,8 +120,8 @@ class GaussViewModel @Inject constructor(
                 solveGaussSystemUseCase(
                     GaussSolveRequest(
                         modulus = modulus,
-                        coefficients = coefficients,
-                        constants = constants,
+                        coefficients = currentState.coefficients,
+                        constants = currentState.constants,
                     ),
                 )
             }.onSuccess { solution ->
@@ -144,19 +144,14 @@ class GaussViewModel @Inject constructor(
         }
     }
 
-    private fun parseMatrix(values: List<List<String>>): List<List<BigInteger>>? =
-        values.map { row ->
-            row.map { value ->
-                value.trim().takeIf(String::isNotEmpty)?.toBigIntegerOrNull()
-            }
-        }.takeIf { matrix -> matrix.flatten().all { it != null } }
-            ?.map { row -> row.mapNotNull { it } }
-
-    private fun parseVector(values: List<String>): List<BigInteger>? =
-        values.map { value ->
-            value.trim().takeIf(String::isNotEmpty)?.toBigIntegerOrNull()
-        }.takeIf { vector -> vector.all { it != null } }
-            ?.mapNotNull { it }
+    private fun hasValidCoefficients(state: GaussUiState, modulus: BigInteger): Boolean {
+        val values = state.coefficients.flatten() + state.constants
+        return if (modulus == BigInteger.ZERO) {
+            values.all { value -> Rational.parse(value.trim()) != null }
+        } else {
+            values.all { value -> value.trim().toBigIntegerOrNull() != null }
+        }
+    }
 
     private fun resizeMatrix(
         current: List<List<String>>,

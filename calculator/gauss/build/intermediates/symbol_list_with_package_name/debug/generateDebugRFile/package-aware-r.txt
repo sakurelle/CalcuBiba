@@ -1,7 +1,5 @@
 ru.calcubiba.calculator.gauss
 string gauss_actions_title
-string gauss_augmented_editor_hint
-string gauss_augmented_editor_title
 string gauss_basic_variables
 string gauss_calculate_action
 string gauss_clear_action
@@ -14,9 +12,7 @@ string gauss_free_variables
 string gauss_general_solution
 string gauss_linear_editor_hint
 string gauss_linear_editor_title
-string gauss_mode_augmented
-string gauss_mode_linear_system
-string gauss_mode_title
+string gauss_modulus_hint
 string gauss_modulus_label
 string gauss_none
 string gauss_null_space_basis

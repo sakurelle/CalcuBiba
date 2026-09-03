@@ -1,11 +1,11 @@
 <resources>
-    <string name="catalog_title">Calculator catalog</string>
-    <string name="catalog_search_label">Search calculators</string>
-    <string name="catalog_search_placeholder">Gauss, matrix, field...</string>
-    <string name="catalog_empty_title">Nothing found</string>
-    <string name="catalog_empty_message">Try another query or clear the search to see all calculators.</string>
-    <string name="category_linear_algebra">Linear algebra</string>
-    <string name="category_finite_fields">Finite fields</string>
-    <string name="category_polynomials">Polynomials</string>
-    <string name="category_coding_theory">Coding theory</string>
+    <string name="catalog_title">Каталог калькуляторов</string>
+    <string name="catalog_search_label">Поиск калькуляторов</string>
+    <string name="catalog_search_placeholder">Гаусс, матрица, поле…</string>
+    <string name="catalog_empty_title">Ничего не найдено</string>
+    <string name="catalog_empty_message">Попробуйте другой запрос или очистите поле поиска.</string>
+    <string name="category_linear_algebra">Линейная алгебра</string>
+    <string name="category_finite_fields">Конечные поля</string>
+    <string name="category_polynomials">Многочлены</string>
+    <string name="category_coding_theory">Теория кодирования</string>
 </resources>

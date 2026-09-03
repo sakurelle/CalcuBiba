@@ -1,17 +1,13 @@
 package ru.calcubiba.calculator.gauss
 
-import java.math.BigInteger
-import ru.calcubiba.core.math.LinearSystemSolution
-
 data class GaussUiState(
     val rowCount: Int = 2,
     val variableCount: Int = 2,
-    val modulus: String = "5",
-    val inputMode: GaussInputMode = GaussInputMode.LINEAR_SYSTEM,
+    val modulus: String = "0",
     val coefficients: List<List<String>> = emptyStringMatrix(rowCount = 2, columnCount = 2),
     val constants: List<String> = emptyStringVector(size = 2),
     val isCalculating: Boolean = false,
-    val result: LinearSystemSolution<BigInteger>? = null,
+    val result: GaussSolveResult? = null,
     val error: GaussError? = null,
 )
 
